@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CadeBuilds — Custom PC Assembly</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --white:#ffffff;--offwhite:#f7f7f5;--light:#ebebeb;--mid:#c8c8c8;--muted:#888;--dark:#1a1a1a;
+  --accent:#1d6ef5;--accent-light:#e8f0fe;--accent-dark:#0f47b0;
+  --success:#1d9e75;--success-light:#e1f5ee;
+  --radius:10px;--radius-lg:16px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);font-size:15px;line-height:1.6;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--light);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:60px;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--dark);letter-spacing:-.5px;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:500;transition:color .2s;cursor:pointer;}
+.nav-links a:hover{color:var(--dark);}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;}
+.nav-cta:hover{background:var(--accent-dark);}
+
+#home{padding:5rem 2.5rem 4rem;max-width:960px;margin:0 auto;text-align:center;}
+.hero-eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:5px 14px;border-radius:20px;margin-bottom:1.5rem;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:3.2rem;line-height:1.15;letter-spacing:-1px;color:var(--dark);margin-bottom:1.25rem;}
+.hero-title em{font-style:normal;color:var(--accent);}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:540px;margin:0 auto 2rem;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:13px 28px;border-radius:9px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;}
+.btn-primary:hover{background:var(--accent-dark);}
+.btn-outline{background:transparent;color:var(--dark);border:1.5px solid var(--light);padding:12px 24px;border-radius:9px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.btn-outline:hover{border-color:var(--mid);}
+
+.stats-bar{background:var(--offwhite);border-top:1px solid var(--light);border-bottom:1px solid var(--light);padding:1.5rem 2.5rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-num{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--dark);}
+.stat-label{font-size:12px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.8px;}
+
+section{padding:4rem 2.5rem;max-width:960px;margin:0 auto;}
+.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.section-title{font-family:'DM Serif Display',serif;font-size:2rem;letter-spacing:-.5px;margin-bottom:1rem;}
+.section-sub{color:var(--muted);max-width:520px;margin-bottom:2.5rem;font-size:.95rem;}
+
+/* SERVICES */
+#services .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.service-card{border:1.5px solid var(--light);border-radius:var(--radius-lg);padding:1.75rem;transition:border-color .2s;}
+.service-card:hover{border-color:var(--accent);}
+.service-card.featured{border-color:var(--accent);}
+.svc-icon{width:40px;height:40px;background:var(--accent-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:20px;}
+.svc-badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:.6rem;}
+.service-card h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem;}
+.service-card p{font-size:.88rem;color:var(--muted);line-height:1.6;}
+.svc-fee{margin-top:1rem;font-size:.82rem;font-weight:600;color:var(--accent);background:var(--accent-light);display:inline-block;padding:4px 10px;border-radius:6px;}
+
+#pricing .upcharges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1.5rem;}
+.upcharge-item{background:var(--offwhite);border-radius:var(--radius);padding:1.1rem 1.2rem;border:1px solid var(--light);}
+.upcharge-item h4{font-size:.9rem;font-weight:600;margin-bottom:.3rem;}
+.upcharge-item p{font-size:.8rem;color:var(--muted);}
+.upcharge-price{font-size:.82rem;font-weight:600;color:var(--accent);margin-top:.5rem;}
+
+#process .steps{display:flex;flex-direction:column;}
+.step{display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid var(--light);}
+.step:last-child{border-bottom:none;}
+.step-num{flex-shrink:0;width:36px;height:36px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;}
+.step-body h4{font-weight:600;margin-bottom:.3rem;}
+.step-body p{font-size:.88rem;color:var(--muted);}
+
+/* FORM */
+#get-started{padding:4rem 2.5rem;max-width:700px;margin:0 auto;}
+.form-wrap{background:var(--white);border:1.5px solid var(--light);border-radius:var(--radius-lg);padding:2.5rem;}
+.form-step{display:none;}
+.form-step.active{display:block;}
+.step-label{font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.form-title{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.4rem;}
+.form-desc{font-size:.88rem;color:var(--muted);margin-bottom:2rem;}
+.option-cards{display:flex;flex-direction:column;gap:10px;}
+.option-card{border:1.5px solid var(--light);border-radius:var(--radius);padding:1.1rem 1.25rem;cursor:pointer;transition:border-color .2s,background .2s;display:flex;align-items:flex-start;gap:1rem;}
+.option-card:hover{border-color:var(--accent);background:var(--accent-light);}
+.option-card.selected{border-color:var(--accent);background:var(--accent-light);}
+.oc-dot{width:18px;height:18px;border:2px solid var(--mid);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:border-color .2s;}
+.option-card.selected .oc-dot{border-color:var(--accent);}
+.oc-dot-inner{width:9px;height:9px;background:var(--accent);border-radius:50%;display:none;}
+.option-card.selected .oc-dot-inner{display:block;}
+.oc-label{font-weight:600;font-size:.95rem;margin-bottom:.2rem;}
+.oc-desc{font-size:.82rem;color:var(--muted);line-height:1.55;}
+.form-group{margin-bottom:1.25rem;}
+.form-group label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid var(--light);border-radius:8px;padding:10px 13px;font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--dark);background:var(--white);outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group textarea{min-height:90px;resize:vertical;}
+.form-nav{display:flex;gap:10px;margin-top:1.75rem;align-items:center;}
+.form-back{background:none;border:1.5px solid var(--light);color:var(--muted);padding:10px 20px;border-radius:8px;cursor:pointer;font-size:.9rem;font-family:'DM Sans',sans-serif;}
+.form-back:hover{border-color:var(--mid);}
+.form-next{background:var(--accent);color:#fff;border:none;padding:11px 24px;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:500;font-family:'DM Sans',sans-serif;transition:background .2s,opacity .2s;}
+.form-next:hover:not(:disabled){background:var(--accent-dark);}
+.form-next:disabled{opacity:.4;cursor:default;}
+.progress-bar{height:3px;background:var(--light);border-radius:3px;margin-bottom:2rem;}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .35s;}
+.success-wrap{text-align:center;padding:1rem 0;}
+.success-icon{width:60px;height:60px;background:var(--success-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.8rem;color:var(--success);}
+.success-wrap h2{font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:.75rem;}
+.success-wrap p{color:var(--muted);font-size:.92rem;max-width:380px;margin:0 auto;}
+.sending-note{font-size:.82rem;color:var(--muted);margin-left:auto;}
+.error-note{font-size:.82rem;color:#c0392b;margin-top:.5rem;display:none;}
+
+footer{background:var(--dark);color:rgba(255,255,255,.5);text-align:center;padding:2rem;font-size:.82rem;}
+footer span{color:#fff;font-family:'DM Serif Display',serif;font-size:1rem;}
+
+/* FAQ */
+#faq{padding:4rem 0;}
+.faq-wrap{max-width:960px;margin:0 auto;padding:0 2.5rem;}
+.faq-item{border-bottom:1px solid var(--light);}
+.faq-item:first-of-type{border-top:1px solid var(--light);}
+.faq-q{width:100%;background:none;border:none;text-align:left;font-family:'DM Sans',sans-serif;font-size:.97rem;font-weight:600;color:var(--dark);padding:1.15rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .2s;}
+.faq-q:hover{color:var(--accent);}
+.faq-chevron{flex-shrink:0;width:20px;height:20px;color:var(--muted);transition:transform .25s;}
+.faq-item.open .faq-chevron{transform:rotate(180deg);}
+.faq-a{display:none;padding:0 0 1.25rem;font-size:.9rem;color:var(--muted);line-height:1.75;max-width:700px;}
+.faq-item.open .faq-a{display:block;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Cade<span>Builds</span></div>
+  <div class="nav-links">
+    <a onclick="scrollToSection('#services')">Services</a>
+    <a onclick="scrollToSection('#pricing')">Pricing</a>
+    <a onclick="scrollToSection('#policies')">Policies</a>
+    <a onclick="scrollToSection('#faq')">FAQ</a>
+  </div>
+  <button class="nav-cta" onclick="scrollToSection('#get-started')">Get a Quote</button>
+</nav>
+
+<div id="home">
+  <div class="hero-eyebrow">Local · Personal · Precise</div>
+  <h1 class="hero-title">Your dream PC,<br/><em>built right</em>.</h1>
+  <p class="hero-sub">CadeBuilds is a local custom PC assembly service. You pick the vision and the budget — I handle the parts, the build, and the testing.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="scrollToSection('#get-started')">Start a Build</button>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Tested before delivery</div></div>
+  <div class="stat"><div class="stat-num">7.5%</div><div class="stat-label">Flat service fee</div></div>
+  <div class="stat"><div class="stat-num">Local</div><div class="stat-label">Carmel, Indiana</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">Day turnaround</div></div>
+</div>
+
+<section id="services">
+  <div class="section-eyebrow">What I offer</div>
+  <h2 class="section-title">Two ways to work together</h2>
+  <p class="section-sub">Whether you already know what you want or need help from the ground up, I've got a path for you.</p>
+  <div class="cards">
+    <div class="service-card">
+      <div class="svc-icon">🔧</div>
+      <h3>Assisted Build</h3>
+      <p>You have a rough idea of parts or budget. I help refine your list, check compatibility, then assemble, cable-manage, and fully test your PC. Great if you want input without giving up control.</p>
+      <div class="svc-fee">7.5% of total build cost</div>
+    </div>
+    <div class="service-card featured">
+      <div class="svc-badge">Most popular</div>
+      <div class="svc-icon">⚡</div>
+      <h3>Full Service Build</h3>
+      <p>You tell me your budget and what you'll use it for. I spec the entire system, source all parts, assemble, manage cables cleanly, and test everything. You get a finished, ready-to-go PC.</p>
+      <div class="svc-fee">7.5% of total build cost</div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="section-eyebrow">Pricing</div>
+  <h2 class="section-title">Simple, transparent fees</h2>
+  <p class="section-sub">My base fee is 7.5% of the total build cost. Add-ons below are available on any build.</p>
+  <div class="upcharges">
+    <div class="upcharge-item"><h4>Partial OS Installation</h4><p>Windows 11 Home or Pro installed. Includes driver setup.</p><div class="upcharge-price">+$20</div></div>
+    <div class="upcharge-item"><h4>Full OS Installation</h4><p>Windows 11 Home or Pro installed, activated, and updated. Includes driver setup.</p><div class="upcharge-price">+$50</div></div>
+    <div class="upcharge-item"><h4>BIOS Optimization</h4><p>RAM XMP/EXPO enabled, boot optimization, and performance profile tuning for your exact hardware.</p><div class="upcharge-price">+$20</div></div>
+    <div class="upcharge-item"><h4>Software Setup Bundle</h4><p>Chrome, Discord, Steam, OBS, and any other apps of your choice installed and ready to go.</p><div class="upcharge-price">+$20</div></div>
+    <div class="upcharge-item"><h4>Benchmarking & Stress Test Report</h4><p>Full Cinebench, 3DMark, and Furmark report provided. Know exactly what your PC can do.</p><div class="upcharge-price">+$25</div></div>
+    <div class="upcharge-item"><h4>Delivery & Setup</h4><p>I bring the PC to your home, plug it in, and make sure everything boots and connects correctly.</p><div class="upcharge-price">+$30 (local area)</div></div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-eyebrow">How it works</div>
+  <h2 class="section-title">From form to finished PC</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Fill out the form</h4><p>Tell me your service type, budget, and what you'll use the PC for. Takes about 2 minutes.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h4>I get back to you</h4><p>Within 24 hours I'll reach out with a parts list, timeline, and total cost for your approval.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Parts arrive, build begins</h4><p>Once parts are confirmed, I start the build and send updates along the way.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Tested & delivered</h4><p>Every build is stress-tested before leaving my hands. Pick up locally or add delivery.</p></div></div>
+  </div>
+</section>
+
+<section id="get-started">
+  <div class="section-eyebrow" style="text-align:center">Get started</div>
+  <h2 class="section-title" style="text-align:center;margin-bottom:.5rem">Request a build</h2>
+  <p style="text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:2rem">Fill out the form below and I'll be in touch within 24 hours.</p>
+  <div class="form-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="prog" style="width:20%"></div></div>
+
+    <div class="form-step active" id="s1">
+      <div class="step-label">Step 1 of 4</div>
+      <h3 class="form-title">What kind of build?</h3>
+      <p class="form-desc">Choose the service that fits you best.</p>
+      <div class="option-cards">
+        <div class="option-card" onclick="selectOption(this,'svc','assisted')">
+          <div class="oc-dot"><div class="oc-dot-inner"></div></div>
+          <div><div class="oc-label">Assisted Build</div><div class="oc-desc">You have a rough idea of parts or budget. I help refine, check compatibility, then assemble and test everything.</div></div>
+        </div>
+        <div class="option-card" onclick="selectOption(this,'svc','full')">
+          <div class="oc-dot"><div class="oc-dot-inner"></div></div>
+          <div><div class="oc-label">Full Service Build</div><div class="oc-desc">You tell me budget and purpose. I handle everything — parts, sourcing, assembly, cable management, and testing.</div></div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="form-next" id="s1next" onclick="goStep(2)" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <div class="form-step" id="s2">
+      <div class="step-label">Step 2 of 4</div>
+      <div id="s2-content"></div>
+      <div class="form-nav">
+        <button class="form-back" onclick="goStep(1)">← Back</button>
+        <button class="form-next" onclick="goStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <div class="form-step" id="s3">
+      <div class="step-label">Step 3 of 4</div>
+      <h3 class="form-title">Your contact info</h3>
+      <p class="form-desc">How should I get in touch with you?</p>
+      <div class="form-group"><label>Full name</label><input type="text" id="f-name" placeholder="Jane Smith"/></div>
+      <div class="form-group"><label>Email address</label><input type="email" id="f-email" placeholder="jane@email.com"/></div>
+      <div class="form-group"><label>Phone number (optional)</label><input type="tel" id="f-phone" placeholder="(317) 555-0100"/></div>
+      <div class="form-group"><label>Anything else I should know?</label><textarea id="f-notes" placeholder="Timeline, questions, preferences..."></textarea></div>
+      <div class="form-nav">
+        <button class="form-back" onclick="goStep(2)">← Back</button>
+        <button class="form-next" id="submitBtn" onclick="submitForm()">Send Request →</button>
+        <span class="sending-note" id="sendingNote" style="display:none">Sending...</span>
+      </div>
+      <div class="error-note" id="errorNote">Something went wrong. Please email cadebuildspcs@gmail.com directly.</div>
+    </div>
+
+    <div class="form-step" id="s4">
+      <div class="success-wrap">
+        <div class="success-icon">✓</div>
+        <h2>Thanks for choosing CadeBuilds!</h2>
+        <p>Your request has been sent to Cade. Expect to hear back within 24 hours to talk next steps.</p>
+        <br/>
+        <button class="btn-outline" onclick="resetForm()" style="margin-top:.5rem">Submit another request</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="policies" style="background:var(--offwhite);padding:3.5rem 0;">
+  <div style="max-width:960px;margin:0 auto;padding:0 2.5rem;">
+    <div class="section-eyebrow">Policies</div>
+    <h2 class="section-title">What you can expect</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:2rem;">
+      <div style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;"><h4 style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">Liability & DOA Parts</h4><p style="font-size:.82rem;color:var(--muted);line-height:1.65;">I am not responsible for parts that arrive dead-on-arrival (DOA). If a component fails before or during assembly, I'll diagnose the issue and assist with the RMA process — but warranty claims go through the manufacturer directly. I handle the build; the parts are your responsibility to return if needed.</p></div>
+      <div style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;"><h4 style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">Post-Delivery Defects</h4><p style="font-size:.82rem;color:var(--muted);line-height:1.65;">All builds are tested before delivery. If something fails within 7 days of delivery due to assembly error on my part, I'll fix it at no charge. Hardware failures after delivery are covered under individual part warranties — not my labor fee.</p></div>
+      <div style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;"><h4 style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">Turnaround Time</h4><p style="font-size:.82rem;color:var(--muted);line-height:1.65;">Standard turnaround is 1 day from the time all parts are confirmed and in my hands. I will always communicate any delays.</p></div>
+      <div style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;"><h4 style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">Payment</h4><p style="font-size:.82rem;color:var(--muted);line-height:1.65;">Payment is due upon part orders. Accepted: Cashapp, Zelle, cash, Venmo, or PayPal.</p></div>
+      <div style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;"><h4 style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">Cancellations</h4><p style="font-size:.82rem;color:var(--muted);line-height:1.65;">Cancellations are accepted before parts are ordered with no charge. Once parts have been sourced, any non-returnable items are the customer's responsibility. I will always work with you to find a fair resolution.</p></div>
+      <div style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;"><h4 style="font-weight:600;font-size:.9rem;margin-bottom:.5rem;">Service Area</h4><p style="font-size:.82rem;color:var(--muted);line-height:1.65;">CadeBuilds currently serves the Carmel, Indiana area and surrounding communities. Delivery and setup add-on is available within a reasonable local radius. Contact me to confirm your area is covered before submitting a request.</p></div>
+    </div>
+  </div>
+</div>
+
+<div id="faq">
+  <div class="faq-wrap">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Who buys the parts — me or you?
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-a">I handle all the sourcing and ordering once you've approved the parts list. You pay for the components at cost — no markup on hardware — plus the 7.5% service fee on top. You don't need to shop anywhere yourself; just approve the build and I take care of the rest.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How exactly does the 7.5% fee work?
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-a">The fee is 7.5% of the total cost of your parts — that's it. If your build comes to $1,000 in components, the service fee is $75. Parts are passed along at exactly what they cost; there's no markup on the hardware itself, just the flat labor rate.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          When and how do I pay?
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-a">Payment is due when the parts are ready to be ordered — that way everything arrives and the build starts right away. You'll cover the cost of the components plus the service fee at that point. Accepted payment methods: Cashapp, Zelle, cash, Venmo, and PayPal.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What happens if something stops working after delivery?
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-a">Every build is fully tested before it leaves my hands. If something fails within 7 days of delivery and it's due to an assembly issue on my end, I'll fix it at no charge. If a component fails later because of a hardware defect, that's covered under the manufacturer's warranty — not the labor fee.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p style="margin-bottom:.3rem"><span>CadeBuilds</span></p>
+  <p>Carmel, Indiana · Local custom PC assembly · cadebuildspcs@gmail.com</p>
+</footer>
+
+<script>
+// EmailJS config
+const EMAILJS_PUBLIC_KEY  = 'LZWiyh-1gyIUkVMPO';
+const EMAILJS_SERVICE_ID  = 'service_784ehl6';
+const EMAILJS_TEMPLATE_ID = 'template_9uk5cpg';
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+let state = {svc:'', budget:'', purpose:'', partsIdea:''};
+
+function scrollToSection(sel){document.querySelector(sel).scrollIntoView({behavior:'smooth'});}
+
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+function selectOption(el,key,val){
+  el.closest('.option-cards').querySelectorAll('.option-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state[key]=val;
+  if(key==='svc'){document.getElementById('s1next').disabled=false;buildStep2();}
+}
+
+function buildStep2(){
+  const c=document.getElementById('s2-content');
+  if(state.svc==='assisted'){
+    c.innerHTML=`<h3 class="form-title">Tell me about your build</h3><p class="form-desc">Share what you have in mind — no need to have it all figured out.</p>
+      <div class="form-group"><label>Parts or ideas you already have</label><textarea id="f-parts" placeholder="e.g. I want an RTX 4070, 32GB RAM, looking at a mid-tower case..."></textarea></div>
+      <div class="form-group"><label>Budget range</label><select id="f-budget"><option value="">Select a range...</option><option>Under $700</option><option>$700 – $1,000</option><option>$1,000 – $1,500</option><option>$1,500 – $2,000</option><option>$2,000 – $3,000</option><option>$3,000+</option></select></div>
+      <div class="form-group"><label>Primary purpose</label><select id="f-purpose"><option value="">Select a purpose...</option><option>Gaming</option><option>Video Editing / Content Creation</option><option>3D Modeling / Rendering</option><option>Software Engineering / Development</option><option>Graphic Design / Art</option><option>Everyday Use / Work</option><option>Streaming</option><option>Music Production</option><option>Multiple / Other</option></select></div>`;
+  } else {
+    c.innerHTML=`<h3 class="form-title">Tell me your vision</h3><p class="form-desc">I'll handle everything — just share your budget and what this PC will do.</p>
+      <div class="form-group"><label>Budget range</label><select id="f-budget"><option value="">Select a range...</option><option>Under $700</option><option>$700 – $1,000</option><option>$1,000 – $1,500</option><option>$1,500 – $2,000</option><option>$2,000 – $3,000</option><option>$3,000+</option></select></div>
+      <div class="form-group"><label>Primary purpose</label><select id="f-purpose"><option value="">Select a purpose...</option><option>Gaming</option><option>Video Editing / Content Creation</option><option>3D Modeling / Rendering</option><option>Software Engineering / Development</option><option>Graphic Design / Art</option><option>Everyday Use / Work</option><option>Streaming</option><option>Music Production</option><option>Multiple / Other</option></select></div>`;
+  }
+}
+
+function goStep(n){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  const pcts={1:20,2:50,3:80,4:100};
+  document.getElementById('prog').style.width=pcts[n]+'%';
+}
+
+function collectStep2(){
+  state.budget=document.getElementById('f-budget')?.value||'';
+  state.purpose=document.getElementById('f-purpose')?.value||'';
+  state.partsIdea=document.getElementById('f-parts')?.value||'';
+}
+
+async function submitForm(){
+  collectStep2();
+  const name=document.getElementById('f-name').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const notes=document.getElementById('f-notes').value.trim();
+  if(!name||!email){alert('Please enter your name and email.');return;}
+
+  const btn=document.getElementById('submitBtn');
+  const sending=document.getElementById('sendingNote');
+  const errNote=document.getElementById('errorNote');
+  btn.disabled=true;sending.style.display='inline';errNote.style.display='none';
+
+  const templateParams={
+    service_type:state.svc==='assisted'?'Assisted Build':'Full Service Build',
+    budget:state.budget||'Not specified',
+    purpose:state.purpose||'Not specified',
+    parts_idea:state.partsIdea||'N/A',
+    name,email,phone:phone||'Not provided',notes:notes||'None'
+  };
+
+  try{
+    await emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,templateParams);
+    goStep(4);
+    document.getElementById('prog').style.width='100%';
+  }catch(err){
+    console.error('EmailJS error:',err);
+    btn.disabled=false;sending.style.display='none';errNote.style.display='block';
+  }
+}
+
+function resetForm(){
+  state={svc:'',budget:'',purpose:'',partsIdea:''};
+  document.getElementById('s1next').disabled=true;
+  document.querySelectorAll('.option-card').forEach(c=>c.classList.remove('selected'));
+  ['f-name','f-email','f-phone','f-notes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('submitBtn').disabled=false;
+  document.getElementById('sendingNote').style.display='none';
+  goStep(1);
+}
+</script>
+</body>
+</html>
